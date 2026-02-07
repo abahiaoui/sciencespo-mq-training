@@ -1,6 +1,6 @@
 # 🏫 Méthodes Quantitatives - Sciences Po Training App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://streamlit.io)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://sciencespo-mq-training.streamlit.app/)
 
 This is an interactive educational platform built with **Python** and **Streamlit** to help Sciences Po students master quantitative methods. The application bridges the gap between theoretical understanding (manual calculations) and professional application (Excel Pivot Tables).
 
@@ -17,7 +17,7 @@ The tool allows students to:
 ### 🔄 Infinite Practice
 Every exercise is generated randomly upon request. Contexts vary between **Sociology**, **Political Science**, **Economics**, and **Demography**, ensuring students practice the *method* rather than memorizing answers.
 
-### 📚 Curriculum Covered
+### 📚 Curriculum Covered (Work in Progress)
 
 * **S1 | Introduction:** Interactive Quiz on the history and definition of statistics.
 * **S2 | Simple Distribution:**
@@ -36,8 +36,8 @@ To run this app locally on your machine:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-    cd your-repo-name
+    git clone [https://github.com/abahiaoui/sciencespo-mq-training.git](https://github.com/abahiaoui/sciencespo-mq-training.git)
+    cd sciencespo-mq-training
     ```
 
 2.  **Install requirements:**
@@ -48,17 +48,6 @@ To run this app locally on your machine:
 
 3.  **Run the app:**
     ```bash
-    streamlit run app.py
+    streamlit run 0_🏠_Accueil.py
     ```
 
-## 📂 Project Structure
-
-```text
-├── app.py                                  # Home page (Landing & Contact)
-├── pages/
-│   ├── 01_📝_S1_Ex1_QCM_Intro.py           # Quiz regarding Session 1
-│   ├── 02_📊_S2_Ex2_Distribution_Simple.py # Categorical Distribution (Man/Excel)
-│   ├── 03_📈_S2_Ex3_Distribution_Continue.py # Grouping Continuous Vars (Man/Excel)
-│   └── 04_📈_S2_Ex4_Distribution_Cumulative.py # Cumulative Frequencies (Man/Excel)
-├── requirements.txt                        # Dependencies
-└── README.md                               # Documentation
