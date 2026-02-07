@@ -13,7 +13,7 @@ Bienvenue sur l'outil d'accompagnement du cours de **Méthodes Quantitatives**.
 Cette application vous permet de réviser les notions théoriques et de perfectionner votre maîtrise d'Excel.
 
 ### 🚀 Comment réviser ?
-1. **Choisissez une séance et exercice ** dans le menu latéral à gauche.
+1. **Choisissez une séance et exercice** dans le menu latéral à gauche.
 2. **Sélectionnez un mode :**
     * **Mode Papier & Calculatrice :** Pour vous préparer au format de l'examen (petits jeux de données).
     * **Mode Excel :** Pour pratiquer sur des bases de données réelles (fichiers .xlsx).
