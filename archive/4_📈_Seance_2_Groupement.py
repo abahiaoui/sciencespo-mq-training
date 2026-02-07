@@ -100,7 +100,9 @@ solution_counts = solution.value_counts().sort_index()
 # --- 4. AFFICHAGE ET TÉLÉCHARGEMENT ---
 st.subheader(f"1. L'Exercice : {scen['titre']}")
 
-with st.expander(f"💡 Aide : Comment grouper par pas de {scen['step']} ?"):
+# --- AIDE DANS LA SIDEBAR ---
+with st.sidebar:
+    st.header(f"💡 Aide : Pas de {scen['step']}")
     st.markdown(f"""
     **Le problème :** La variable *{scen['col_var']}* est continue (ex: {df_current[scen['col_var']].iloc[0]} {scen['unit']}). Il faut créer des classes.
     

@@ -83,20 +83,32 @@ df_current = st.session_state.dist_data
 # --- 4. AFFICHAGE ET TÉLÉCHARGEMENT ---
 st.subheader(f"1. L'Exercice : {current_scen['titre']}")
 
-# --- MODIFICATION ICI : AJOUT DU LIEN DANS L'AIDE ---
-with st.expander("💡 Aide : Comment faire un TCD ?"):
-    st.markdown(f"""
-    **Besoin de revoir le cours ?** 📄 <a href="{URL_SLIDES}" target="_blank">Ouvrir les slides de la séance (PDF)</a>
+# --- AIDE DANS LA SIDEBAR ---
+with st.sidebar:
+    st.header("💡 Aide Mémoire")
     
-    ---
-    **Étapes clés :**
-    1. Sélectionnez tout votre tableau (Ctrl+A).
-    2. Allez dans l'onglet **Insertion** > **Tableau Croisé Dynamique**.
-    3. Glissez la variable (ex: *{current_scen['col_var']}*) dans la zone **LIGNES**.
-    4. Glissez la même variable dans la zone **VALEURS** (cela affichera "Nombre de..."). Sinon cliquez sur la variable dans VALEURS > **Paramètres des champs de valeur** > choisissez **Nombre**.
+    st.markdown(f"""
+    **Besoin de revoir le cours ?**
+    📄 <a href="{URL_SLIDES}" target="_blank">Ouvrir les slides (PDF)</a>
     """, unsafe_allow_html=True)
-    # 
+    
+    st.divider()
+    
+    st.markdown(f"""
+    **Comment faire un TCD ?**
+    
+    1. Sélectionnez tout votre tableau (**Ctrl+A**).
+    2. Allez dans **Insertion** > **Tableau Croisé Dynamique**.
+    3. Glissez la variable *{current_scen['col_var']}* dans la zone **LIGNES**.
+    4. Glissez la même variable dans la zone **VALEURS**.
+    
+    ⚠️ *Si Excel affiche une somme au lieu d'un comptage :*
+    * Cliquez sur le champ dans VALEURS.
+    * Allez dans **Paramètres des champs de valeur**.
+    * Choisissez **Nombre** (ou "Compte").
+    """)
 
+# --- CONSIGNES PRINCIPALES ---
 st.info(f"""
 **Contexte :** Vous analysez un fichier de **{len(df_current)} lignes**.
 Chaque ligne est identifiée par `{current_scen['col_id']}`.
