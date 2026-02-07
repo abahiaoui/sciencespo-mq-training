@@ -13,8 +13,9 @@ URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training
 
 st.title("📈 S2 | Ex. 4 : Distribution Cumulative")
 st.markdown("""
-**Objectif :** Calculer les **Effectifs Cumulés Croissants (ECC)**.
+**Objectif :** Calculer les **Effectifs Cumulés ** pour constituer une distribution cumulative.
 Cette étape est indispensable pour déterminer la Médiane et les Quartiles.
+* **Mode Excel :** Savoir utiliser une **fonction** (SOMME) Excel. Savoir appliquer le **remplissage automatique** de formules. Savoir appliquer le signe dollar ($) pour **verrouiller** (ancrer) une cellule.
 """)
 
 # --- SCÉNARIOS ---

@@ -13,12 +13,21 @@ Bienvenue sur l'outil d'accompagnement du cours de **Méthodes Quantitatives**.
 Cette application vous permet de réviser les notions théoriques et de perfectionner votre maîtrise d'Excel.
 
 ### 🚀 Comment réviser ?
-1. **Choisissez une séance** dans le menu latéral à gauche.
+1. **Choisissez une séance et exercice ** dans le menu latéral à gauche.
 2. **Sélectionnez un mode :**
     * **Mode Papier & Calculatrice :** Pour vous préparer au format de l'examen (petits jeux de données).
     * **Mode Excel :** Pour pratiquer sur des bases de données réelles (fichiers .xlsx).
 3. **Recevez un feedback immédiat :** L'outil corrige vos calculs et vos formules.
+""")
 
----
-*Développé pour les étudiants de Sciences Po.*
+st.divider()
+
+st.markdown("""
+### 👨‍💻 Contact
+Cet outil a été développé par **Ahmed BAHIAOUI** pour les étudiants de la première année du collège universitaire de Sciences Po.
+
+Si vous rencontrez un problème technique ou avez une question sur les exercices, n'hésitez pas à me contacter :
+* 📧 **Sciences Po :** [ahmed.bahiaoui@sciencespo.fr](mailto:ahmed.bahiaoui@sciencespo.fr)
+
+*(Si l'adresse Sciences Po est désactivée, vous pouvez me contacter sur mon adresse personnelle : [ahmed.bahiaoui.mail@gmail.com](mailto:ahmed.bahiaoui.mail@gmail.com))*
 """)
