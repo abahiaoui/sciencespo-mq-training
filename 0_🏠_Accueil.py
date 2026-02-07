@@ -29,5 +29,5 @@ Cet outil a été développé par **Ahmed BAHIAOUI** pour les étudiants de la p
 Si vous rencontrez un problème technique ou avez une question sur les exercices, n'hésitez pas à me contacter :
 * 📧 **Sciences Po :** [ahmed.bahiaoui@sciencespo.fr](mailto:ahmed.bahiaoui@sciencespo.fr)
 
-*(Si l'adresse Sciences Po est désactivée, vous pouvez me contacter sur mon adresse personnelle : [ahmed.bahiaoui.mail@gmail.com](mailto:ahmed.bahiaoui.mail@gmail.com))*
+*(Si l'adresse Sciences Po est désactivée, adresse fallback : [ahmed.bahiaoui.mail@gmail.com](mailto:ahmed.bahiaoui.mail@gmail.com))*
 """)
