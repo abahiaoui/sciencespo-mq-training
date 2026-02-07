@@ -1,2 +1,64 @@
-# sciencespo-mq-training
-This repo houses content and exercises aimed at helping train first year SciencesPo students for their second semester statistics course (Méthodes Quantitatives)
+# 🏫 Méthodes Quantitatives - Sciences Po Training App
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://streamlit.io)
+
+This is an interactive educational platform built with **Python** and **Streamlit** to help Sciences Po students master quantitative methods. The application bridges the gap between theoretical understanding (manual calculations) and professional application (Excel Pivot Tables).
+
+## 🎯 Objectives
+
+The tool allows students to:
+1.  **Review Concepts:** Quizzes and theoretical reminders based on the course slides.
+2.  **Understand the Logic:** "Manual Mode" offers small datasets ($N \approx 20$) to perform calculations by hand or calculator.
+3.  **Master Excel:** "Excel Mode" generates large, realistic datasets ($N \approx 200$) to practice Pivot Tables (TCD), Grouping, and Formulas.
+4.  **Self-Correct:** The app provides instant feedback by scanning uploaded Excel files or checking manual inputs.
+
+## 🚀 Features
+
+### 🔄 Infinite Practice
+Every exercise is generated randomly upon request. Contexts vary between **Sociology**, **Political Science**, **Economics**, and **Demography**, ensuring students practice the *method* rather than memorizing answers.
+
+### 📚 Curriculum Covered
+
+* **S1 | Introduction:** Interactive Quiz on the history and definition of statistics.
+* **S2 | Simple Distribution:**
+    * *Manual:* Counting frequencies on a small sorted list.
+    * *Excel:* Creating a Pivot Table (TCD) for categorical variables.
+* **S2 | Grouping (Binning):**
+    * *Manual:* Grouping continuous variables (e.g., Grades, Salaries) into intervals $[a, b[$.
+    * *Excel:* Using the "Group" feature in Pivot Tables.
+* **S2 | Cumulative Distribution:**
+    * *Manual:* Calculating running totals ($N_i$).
+    * *Excel:* Using anchored formulas (`=SUM($B$2:B2)`).
+
+## 🛠️ Installation & Local Usage
+
+To run this app locally on your machine:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+    cd your-repo-name
+    ```
+
+2.  **Install requirements:**
+    Make sure you have Python installed.
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Run the app:**
+    ```bash
+    streamlit run app.py
+    ```
+
+## 📂 Project Structure
+
+```text
+├── app.py                                  # Home page (Landing & Contact)
+├── pages/
+│   ├── 01_📝_S1_Ex1_QCM_Intro.py           # Quiz regarding Session 1
+│   ├── 02_📊_S2_Ex2_Distribution_Simple.py # Categorical Distribution (Man/Excel)
+│   ├── 03_📈_S2_Ex3_Distribution_Continue.py # Grouping Continuous Vars (Man/Excel)
+│   └── 04_📈_S2_Ex4_Distribution_Cumulative.py # Cumulative Frequencies (Man/Excel)
+├── requirements.txt                        # Dependencies
+└── README.md                               # Documentation
