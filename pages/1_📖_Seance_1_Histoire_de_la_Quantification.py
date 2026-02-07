@@ -7,10 +7,14 @@ st.title("📖 Séance 1 : Les méthodes quantitatives comme outil d'argumentati
 
 st.markdown("""
 Révisez les concepts clés de la première séance.
-**Consigne :** Répondez à toutes les questions puis cliquez sur "Valider" pour voir les corrections.
+**Consigne :** Répondez à toutes les questions puis cliquez sur **Valider** pour voir les corrections.
 """)
 
-# --- 1. GESTION DE L'ÉTAT ---
+# --- 1. CONFIGURATION DES LIENS ---
+# Mettez ici le lien vers votre fichier PDF brut (Raw)
+BASE_URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/s%C3%A9ance_1.pdf"
+
+# --- 2. GESTION DE L'ÉTAT ---
 if 'quiz_submitted' not in st.session_state:
     st.session_state.quiz_submitted = False
 
@@ -25,7 +29,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Une branche des mathématiques uniquement dédiée au calcul de probabilités.",
                 "Un outil informatique servant exclusivement à créer des graphiques."
             ],
-            "explanation": "La statistique couvre tout le cycle de vie de la donnée, pas seulement l'analyse."
+            "explanation": "La statistique couvre tout le cycle de vie de la donnée, de la collecte à l'interprétation.",
+            "slide_page": 64 
         },
         {
             "question": "2. Pourquoi la quantification est-elle considérée comme une 'construction' ?",
@@ -36,7 +41,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Parce qu'il faut construire des ordinateurs puissants pour les calculer.",
                 "Parce que les statistiques ne reposent sur aucune base réelle."
             ],
-            "explanation": "Le choix de ce qu'on compte crée une représentation spécifique du monde."
+            "explanation": "Le choix de ce qu'on compte et comment on le compte crée une représentation spécifique du monde.",
+            "slide_page": 66
         },
         {
             "question": "3. Selon les 'Lamentations d'Ipou-our' (Égypte, 1750 av. J.-C.), que se passe-t-il quand les registres administratifs sont détruits ?",
@@ -47,7 +53,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Les scribes sont condamnés à l'exil par le Pharaon.",
                 "La population cesse de payer l'impôt mais continue de respecter les propriétés."
             ],
-            "explanation": "Sans registre (statistique), la propriété privée et l'administration de l'État disparaissent."
+            "explanation": "Sans registres statistiques, la gestion de la propriété et l'administration s'effondrent.",
+            "slide_page": 26
         },
         {
             "question": "4. Dans la Mésopotamie antique, quel était l'usage principal des tablettes d'argile ?",
@@ -58,7 +65,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Cartographier les territoires conquis.",
                 "Lister les généalogies des familles royales."
             ],
-            "explanation": "L'origine de la statistique est comptable et fiscale (ex: rations d'orge)."
+            "explanation": "Les premières statistiques servaient à la gestion comptable et fiscale des cités.",
+            "slide_page": 24
         },
         {
             "question": "5. Que décrit le document rédigé par Auguste pour Tibère à Rome ?",
@@ -69,7 +77,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Une liste de conseils philosophiques pour gouverner.",
                 "Le calendrier des fêtes religieuses de l'Empire."
             ],
-            "explanation": "C'est un ancêtre du 'Tableau de bord' de l'État pour gérer l'Empire."
+            "explanation": "Ce document servait de tableau de bord pour la gestion des ressources impériales.",
+            "slide_page": 25
         },
         {
             "question": "6. D'où vient étymologiquement le terme 'Statistique' (Statistik) ?",
@@ -80,7 +89,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Du grec 'Stater', une ancienne unité de mesure de poids.",
                 "De l'anglais 'State-istics', l'art de gouverner."
             ],
-            "explanation": "L'approche allemande (Statistik) était littéralement la science de l'État."
+            "explanation": "L'école allemande voyait la statistique comme l'outil de description de l'État.",
+            "slide_page": 41
         },
         {
             "question": "7. Quel contexte économique du XVIe siècle a favorisé le renouveau de la pensée quantitative ?",
@@ -91,10 +101,11 @@ if 'shuffled_questions' not in st.session_state:
                 "La fin de la guerre de Cent Ans qui a permis de lever de nouvelles armées.",
                 "L'invention de la comptabilité en partie double par les Italiens."
             ],
-            "explanation": "L'afflux d'or et d'argent a créé un besoin de théoriser la monnaie et les prix (mercantilisme)."
+            "explanation": "Le besoin de quantifier la richesse est né de l'essor du mercantilisme.",
+            "slide_page": 34
         },
         {
-            "question": "8. Qu'est-ce que l'Arithmétique Politique de William Petty (1676) ?",
+            "question": "8. Quelle est la nouveauté dans l'Arithmétique Politique de William Petty (1676) ?",
             "correct_text": "Une méthode s'exprimant par le nombre, le poids ou la mesure plutôt que par des mots superlatifs.",
             "options": [
                 "Un manuel de comptabilité pour les marchands de Londres.",
@@ -102,7 +113,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Une théorie mathématique sur la probabilité de gagner aux jeux de hasard.",
                 "Un dictionnaire de termes économiques."
             ],
-            "explanation": "Petty cherchait à objectiver le discours politique par la mesure."
+            "explanation": "Petty a introduit une méthode argumentative basée sur des preuves tangibles et mesurables.",
+            "slide_page": 36
         },
         {
             "question": "9. Quelle est la différence entre l'approche allemande et l'approche anglaise au XVIIe siècle ?",
@@ -113,7 +125,8 @@ if 'shuffled_questions' not in st.session_state:
                 "L'allemande est centrée sur le commerce et l'anglaise sur la démographie.",
                 "L'allemande est théorique alors que l'anglaise est purement administrative."
             ],
-            "explanation": "L'école allemande décrivait l'État (les faits), l'école anglaise cherchait à estimer l'inconnu par le calcul."
+            "explanation": "Le cours oppose la description d'État (allemande) à l'analyse probabiliste (anglaise).",
+            "slide_page": 43
         },
         {
             "question": "10. À quel moment la statistique peut-elle être 'biaisée' par le statisticien ?",
@@ -124,7 +137,8 @@ if 'shuffled_questions' not in st.session_state:
                 "À toutes les étapes : collecte, description, analyse et interprétation.",
                 "Jamais, si le statisticien utilise des formules mathématiques officielles."
             ],
-            "explanation": "La subjectivité intervient dès le choix de la question posée."
+            "explanation": "Le biais peut survenir dès la formulation des questions ou lors du choix des données analysées.",
+            "slide_page": 59
         },
         {
             "question": "11. Quel exemple le cours utilise-t-il pour montrer qu'un chiffre peut créer deux réalités différentes ?",
@@ -135,7 +149,8 @@ if 'shuffled_questions' not in st.session_state:
                 "L'utilisation de différentes couleurs sur une carte électorale.",
                 "Le calcul de la moyenne plutôt que de la médiane pour les salaires."
             ],
-            "explanation": "Ces deux indicateurs décrivent le même phénomène mais racontent une histoire politique différente."
+            "explanation": "Deux indicateurs réels peuvent orienter l'argumentation de manière différente.",
+            "slide_page": 54
         },
         {
             "question": "12. Quel est le but ultime de ce cours de méthodes quantitatives ?",
@@ -146,17 +161,17 @@ if 'shuffled_questions' not in st.session_state:
                 "Comprendre l'idée transmise par les chiffres et identifier les points forts/faibles de l'argumentation.",
                 "Prouver que les sciences sociales sont plus précises que les sciences dures."
             ],
-            "explanation": "Le cours vise à former l'esprit critique face aux données."
+            "explanation": "L'objectif est d'acquérir un esprit critique face aux arguments chiffrés.",
+            "slide_page": 68
         }
     ]
     
-    # Mélange des options pour éviter la mémorisation de la position
     for q in raw_questions:
         random.shuffle(q['options'])
     
     st.session_state.shuffled_questions = raw_questions
 
-# --- 2. AFFICHAGE DU FORMULAIRE ---
+# --- 3. AFFICHAGE DU FORMULAIRE ---
 with st.form(key='quiz_form_inline'):
     user_answers = {}
     score = 0
@@ -172,18 +187,19 @@ with st.form(key='quiz_form_inline'):
             label_visibility="collapsed"
         )
         
-        # Affichage de la correction UNIQUEMENT si le quiz a été soumis
         if st.session_state.quiz_submitted:
             if user_answers[i] == q['correct_text']:
                 st.success(f"✅ Correct ! {q['explanation']}")
                 score += 1
-            elif user_answers[i] is None:
-                st.warning("⚠️ Vous n'avez pas répondu.")
-                st.markdown(f"**La bonne réponse était :** {q['correct_text']}")
             else:
-                st.error(f"❌ Incorrect. \n\n**La bonne réponse était :** {q['correct_text']}")
-                st.info(f"💡 **Explication :** {q['explanation']}")
-        
+                slide_url = f"{BASE_URL_SLIDES}#page={q['slide_page']}"
+                st.error(f"❌ Incorrect.")
+                st.markdown(
+                    f"**La bonne réponse était :** {q['correct_text']}\n\n"
+                    f"💡 {q['explanation']}  "
+                    f"👉 <a href='{slide_url}' target='_blank' style='text-decoration:none; color:#FF4B4B;'>Voir le slide page {q['slide_page']}</a>",
+                    unsafe_allow_html=True
+                )
         st.write("---")
 
     submit_button = st.form_submit_button(label="Valider mes réponses")
@@ -192,7 +208,7 @@ with st.form(key='quiz_form_inline'):
         st.session_state.quiz_submitted = True
         st.rerun()
 
-# --- 3. RÉSULTATS ---
+# --- 4. RÉSULTATS ---
 if st.session_state.quiz_submitted:
     st.metric("Votre Résultat Final", f"{score} / {len(st.session_state.shuffled_questions)}")
     
@@ -201,7 +217,6 @@ if st.session_state.quiz_submitted:
     
     if st.button("🔄 Recommencer le Quiz"):
         st.session_state.quiz_submitted = False
-        # Remélanger les questions pour la prochaine tentative
         for q in st.session_state.shuffled_questions:
             random.shuffle(q['options'])
         st.rerun()
