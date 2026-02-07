@@ -6,261 +6,185 @@ import random
 import openpyxl
 from datetime import datetime
 
-st.set_page_config(page_title="Séance 2 : Groupement", page_icon="📈", layout="wide")
+st.set_page_config(page_title="S2 | Ex3 : Groupement", page_icon="📈", layout="wide")
 
 # --- CONFIGURATION ---
 URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=15"
 
-st.title("📈 Séance 2 : Le Groupement par Intervalles")
+st.title("📈 S2 | Ex. 3 : Groupement (Variable Continue)")
 st.markdown("""
-**Objectif :** Transformer une variable quantitative **continue** (ex: salaire, note, âge) en **classes** (tranches).
-Commencez par le mode manuel pour comprendre la logique, puis passez à Excel.
+**Objectif :** Transformer une variable continue (Salaire, Note...) en classes d'intervalles.
+* **Mode Manuel :** Comprendre l'inclusion/exclusion des bornes.
+* **Mode Excel :** Utiliser la fonction "Grouper" du TCD.
 """)
 
-# --- SCÉNARIOS ---
 SCENARIOS = {
     "notes": {
-        "tag": "Notes", "titre": "Les Mentions (Éducation)", "unit": "/20",
-        "min": 10, "max": 20, "mean": 14.5, "std": 2.5, "digits": 2,
-        "step": 2,
+        "tag": "Notes", "titre": "Mentions (Éducation)", "unit": "/20",
+        "min": 10, "max": 20, "mean": 14.5, "std": 2.5, "digits": 2, "step": 2,
         "bins": [10, 12, 14, 16, 18, 20.1],
         "labels": ["10 à <12", "12 à <14", "14 à <16", "16 à <18", "18 à 20"]
     },
     "revenus": {
         "tag": "Revenus", "titre": "Salaires (Économie)", "unit": "€",
-        "min": 1500, "max": 4000, "mean": 2600, "std": 600, "digits": 0,
-        "step": 500,
+        "min": 1500, "max": 4000, "mean": 2600, "std": 600, "digits": 0, "step": 500,
         "bins": [1500, 2000, 2500, 3000, 3500, 4001],
         "labels": ["1500 à <2000", "2000 à <2500", "2500 à <3000", "3000 à <3500", "3500 à 4000"]
     },
     "age": {
-        "tag": "Age", "titre": "Pyramide des Âges (Démographie)", "unit": "ans",
-        "min": 20, "max": 70, "mean": 45, "std": 15, "digits": 0,
-        "step": 10,
+        "tag": "Age", "titre": "Pyramide des Âges", "unit": "ans",
+        "min": 20, "max": 70, "mean": 45, "std": 15, "digits": 0, "step": 10,
         "bins": [20, 30, 40, 50, 60, 70.1],
         "labels": ["20 à <30", "30 à <40", "40 à <50", "50 à <60", "60 à 70"]
     }
 }
 
-# --- CRÉATION DES ONGLETS ---
-tab_manual, tab_excel = st.tabs(["📝 Mode Manuel (Comprendre)", "📊 Mode Excel (Pratiquer)"])
+tab_man, tab_xl = st.tabs(["📝 Mode Manuel", "📊 Mode Excel"])
 
 # ==============================================================================
-# 🟢 ONGLET 1 : MODE MANUEL
+# ONGLET 1 : MANUEL
 # ==============================================================================
-with tab_manual:
+with tab_man:
     st.subheader("1. Création de classes à la main")
     
-    # --- Sidebar Spécifique ---
     with st.sidebar:
-        st.header("📝 Aide : Mode Manuel")
+        st.markdown("---")
+        st.header("📝 Aide : Groupement")
         st.markdown(f"""
-        **Ressource :**
-        📄 <a href="{URL_SLIDES}" target="_blank">Slides du cours</a>
+        📄 <a href="{URL_SLIDES}" target="_blank">Slides (PDF)</a>
         
-        ---
-        **Règle des intervalles [a, b[ :**
-        * **Borne de début (a)** : Incluse (on compte).
-        * **Borne de fin (b)** : Exclue (on ne compte pas, ça va dans la suivante).
-        
-        *Exemple :*
-        Dans l'intervalle **10 à <12** :
-        * 10 est compté.
-        * 11.9 est compté.
-        * 12 va dans l'intervalle suivant.
+        **Intervalle [a, b[ :**
+        * **a** inclus (compté).
+        * **b** exclu (va dans la suite).
+        * *Ex: 12 est dans [12, 14[, pas [10, 12[*
         """, unsafe_allow_html=True)
 
-    # --- Gestion État ---
     if st.button("🔄 Nouveau Cas Manuel", key="btn_grp_man"):
-        keys_to_del = ['grp_man_data', 'grp_man_scen', 'grp_man_input', 'grp_man_check']
-        for k in keys_to_del:
+        keys = ['gm_data', 'gm_scen', 'gm_input', 'gm_check']
+        for k in keys:
             if k in st.session_state: del st.session_state[k]
         st.rerun()
 
-    if 'grp_man_data' not in st.session_state:
+    if 'gm_data' not in st.session_state:
         s_key = random.choice(list(SCENARIOS.keys()))
         scen = SCENARIOS[s_key]
-        
-        n = 20 # Petit échantillon
-        # Uniforme pour avoir des données un peu partout
-        raw = np.random.uniform(scen["min"], scen["max"], n)
-        clean = np.round(raw, scen["digits"])
-        clean.sort() # TRIÉ pour faciliter le travail manuel
-        
-        df = pd.DataFrame(clean, columns=["Valeur"])
-        df_input = pd.DataFrame({"Intervalle": scen["labels"], "Effectif": [0]*len(scen["labels"])})
-        
-        st.session_state.grp_man_data = df
-        st.session_state.grp_man_scen = scen
-        st.session_state.grp_man_input = df_input
-        st.session_state.grp_man_check = False
+        n = 20
+        # Données triées pour le manuel
+        clean = np.round(np.random.uniform(scen["min"], scen["max"], n), scen["digits"])
+        clean.sort()
+        st.session_state.gm_data = pd.DataFrame(clean, columns=["Valeur"])
+        st.session_state.gm_scen = scen
+        st.session_state.gm_input = pd.DataFrame({"Intervalle": scen["labels"], "Effectif": [0]*len(scen["labels"])})
+        st.session_state.gm_check = False
 
-    df_m = st.session_state.grp_man_data
-    scen_m = st.session_state.grp_man_scen
+    df_m = st.session_state.gm_data
+    scen_m = st.session_state.gm_scen
 
-    # --- Interface ---
-    st.info(f"Voici **20 valeurs triées** ({scen_m['titre']}). Classez-les par intervalles de **{scen_m['step']} {scen_m['unit']}** dans le tableau de droite.")
+    st.info(f"Voici **20 valeurs triées**. Classez-les par pas de **{scen_m['step']} {scen_m['unit']}**.")
 
     col1, col2 = st.columns([1, 2])
     with col1:
-        st.markdown("**Données Triées**")
         st.dataframe(df_m, height=600, hide_index=True)
-    
     with col2:
-        st.markdown("**Votre Groupement**")
         edited_df = st.data_editor(
-            st.session_state.grp_man_input,
+            st.session_state.gm_input,
             column_config={
                 "Intervalle": st.column_config.TextColumn(disabled=True),
                 "Effectif": st.column_config.NumberColumn(min_value=0, max_value=20, step=1)
             },
             hide_index=True,
-            key="editor_grp_man"
+            key="edit_grp_man"
         )
+        if st.button("✅ Vérifier", key="chk_grp_man"):
+            st.session_state.gm_check = True
         
-        if st.button("✅ Vérifier mes calculs", key="check_grp_man"):
-            st.session_state.grp_man_check = True
-            
-        # --- Correction ---
-        if st.session_state.grp_man_check:
-            st.divider()
-            # pd.cut fait le calcul théorique
+        if st.session_state.gm_check:
             sol = pd.cut(df_m["Valeur"], bins=scen_m["bins"], labels=scen_m["labels"], right=False)
             true_counts = sol.value_counts().sort_index()
-            
             score = 0
+            st.divider()
             for idx, row in edited_df.iterrows():
                 lbl = row["Intervalle"]
                 val = row["Effectif"]
                 true_val = true_counts.get(lbl, 0)
-                
                 if val == true_val:
                     st.success(f"✅ {lbl} : {val}")
                     score += 1
                 else:
-                    st.error(f"❌ {lbl} : Vous avez mis **{val}**, la réponse est **{true_val}**.")
-            
-            # Check Total
-            user_total = edited_df["Effectif"].sum()
-            if user_total != 20:
-                st.warning(f"⚠️ Total incorrect : {user_total} (Attendu : 20).")
-            
-            if score == len(scen_m["labels"]):
-                st.balloons()
-                st.success("👏 Bravo ! La logique est acquise.")
-
+                    st.error(f"❌ {lbl} : Mis {val}, Attendu {true_val}")
+            if score == len(scen_m["labels"]): st.balloons()
 
 # ==============================================================================
-# 🔵 ONGLET 2 : MODE EXCEL
+# ONGLET 2 : EXCEL
 # ==============================================================================
-with tab_excel:
-    st.subheader("2. Groupement automatique avec Excel")
-
-    # --- Sidebar Spécifique ---
+with tab_xl:
+    st.subheader("2. Groupement automatique Excel")
+    
     with st.sidebar:
-        st.markdown("---")
-        st.header("📊 Aide : Mode Excel")
+        st.header("📊 Aide : Excel")
+        step_help = st.session_state.gx_scen['step'] if 'gx_scen' in st.session_state else "X"
+        min_help = st.session_state.gx_scen['min'] if 'gx_scen' in st.session_state else "Min"
+        max_help = st.session_state.gx_scen['max'] if 'gx_scen' in st.session_state else "Max"
         
-        if 'grp_xl_scen' in st.session_state:
-            curr_step = st.session_state.grp_xl_scen['step']
-            curr_min = st.session_state.grp_xl_scen['min']
-            curr_max = st.session_state.grp_xl_scen['max']
-        else:
-            curr_step = "X"
-            curr_min = "Min"
-            curr_max = "Max"
-
         st.markdown(f"""
-        **Procédure de Groupement :**
-        1. Faites votre TCD (Variable en Lignes, ID en Valeurs).
-        2. **Clic Droit** sur une valeur de la première colonne (gauche).
-        3. Cliquez sur **Grouper...**
-        4. Configurez :
-            * **Début :** {curr_min}
-            * **Fin :** {curr_max}
-            * **Par :** {curr_step}
+        **Procédure :**
+        1. Faire le TCD.
+        2. Clic Droit sur une valeur (gauche) > **Grouper**.
+        3. Config :
+            * Début: {min_help}
+            * Fin: {max_help}
+            * Par: {step_help}
         """)
 
-    # --- Gestion État ---
     if st.button("🔄 Nouveau Cas Excel", key="btn_grp_xl"):
-        if 'grp_xl_data' in st.session_state: del st.session_state['grp_xl_data']
+        if 'gx_data' in st.session_state: del st.session_state['gx_data']
         st.rerun()
 
-    if 'grp_xl_data' not in st.session_state:
+    if 'gx_data' not in st.session_state:
         s_key = random.choice(list(SCENARIOS.keys()))
         scen = SCENARIOS[s_key]
-        n = 300 # Grand échantillon
-        # Distribution Normale pour plus de réalisme
+        n = 300
         raw = np.random.normal(scen["mean"], scen["std"], n)
-        clean = np.clip(raw, scen["min"], scen["max"])
-        clean = np.round(clean, scen["digits"])
-        
+        clean = np.round(np.clip(raw, scen["min"], scen["max"]), scen["digits"])
         ids = random.sample(range(10000, 99999), n)
-        df = pd.DataFrame({"ID": ids, "Variable": clean})
-        
-        st.session_state.grp_xl_data = df
-        st.session_state.grp_xl_scen = scen
+        st.session_state.gx_data = pd.DataFrame({"ID": ids, "Variable": clean})
+        st.session_state.gx_scen = scen
 
-    df_e = st.session_state.grp_xl_data
-    scen_e = st.session_state.grp_xl_scen
+    df_e = st.session_state.gx_data
+    scen_e = st.session_state.gx_scen
 
-    # --- Interface ---
-    st.info(f"""
-    **Contexte :** Fichier de **{len(df_e)} lignes**. Variable : `{scen_e['titre']}`.
-    **Consigne :** Créez un TCD et **Groupez** la variable par pas de **{scen_e['step']}**.
-    """)
+    st.info(f"Fichier : **{len(df_e)} lignes**. Variable `{scen_e['titre']}`. Groupez par pas de **{scen_e['step']}**.")
 
-    # Download
-    ts = datetime.now().strftime("%H%M%S")
-    fname = f"Exo_Group_{scen_e['tag']}_{ts}.xlsx"
+    ts = datetime.now().strftime("%H%M")
+    fn = f"MQ_S2_Ex3_{scen_e['tag']}_{ts}.xlsx"
     out = io.BytesIO()
     with pd.ExcelWriter(out, engine='xlsxwriter') as w:
         df_e.to_excel(w, index=False)
-    
-    st.download_button(f"📥 Télécharger Excel ({scen_e['tag']})", out.getvalue(), fname)
+    st.download_button(f"📥 Télécharger {fn}", out.getvalue(), fn)
 
-    # Upload & Correction
-    up_grp = st.file_uploader("Déposez le fichier Excel avec le TCD groupé", type=['xlsx'], key="up_grp")
-    
-    if up_grp:
+    up = st.file_uploader("Déposez le TCD groupé", type=['xlsx'], key="up_grp_xl")
+    if up:
         try:
-            wb = openpyxl.load_workbook(up_grp, data_only=True)
-            found_nums = set()
-            
-            # Scan global
+            wb = openpyxl.load_workbook(up, data_only=True)
+            nums = set()
             for s in wb.worksheets:
                 for r in s.iter_rows(values_only=True):
                     for c in r:
-                        if isinstance(c, (int, float)):
-                            found_nums.add(int(c)) # On cherche les effectifs (entiers)
+                        if isinstance(c, (int, float)): nums.add(int(c))
             
-            # Vérité
             sol = pd.cut(df_e["Variable"], bins=scen_e["bins"], labels=scen_e["labels"], right=False)
             corr = sol.value_counts().sort_index()
             
-            st.divider()
             cols = st.columns(2)
             ok = True
-            
+            st.divider()
             for i, (lbl, cnt) in enumerate(corr.items()):
                 with cols[i%2]:
-                    # On cherche uniquement si le chiffre 'cnt' existe dans le fichier
-                    # (Tolérance maximale sur le nom des étiquettes dans Excel)
-                    if cnt in found_nums:
-                        st.success(f"✅ Tranche {lbl} : {cnt}")
+                    if cnt in nums:
+                        st.success(f"✅ {lbl} : {cnt}")
                     else:
-                        st.error(f"❌ Tranche {lbl} : {cnt} introuvable")
+                        st.error(f"❌ {lbl} : {cnt} manquant")
                         ok = False
-            
-            # Check Total
-            if len(df_e) in found_nums:
-                st.success(f"✅ Total Général ({len(df_e)}) correct.")
-            else:
-                st.warning("⚠️ Total général introuvable.")
-
-            if ok:
-                st.balloons()
-                st.success("👏 Parfait ! Vous maîtrisez le groupement Excel.")
-
+            if ok: st.balloons()
         except Exception as e:
-            st.error(f"Erreur technique : {e}")
+            st.error(f"Erreur : {e}")

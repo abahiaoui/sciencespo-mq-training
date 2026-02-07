@@ -1,20 +1,21 @@
 import streamlit as st
 import random
 
-st.set_page_config(page_title="Séance 1 : Introduction & Enjeux", page_icon="📖")
+# Configuration de la page
+st.set_page_config(page_title="S1 | Ex1 : Introduction", page_icon="📝")
 
-st.title("📖 Séance 1 : Les méthodes quantitatives comme outil d'argumentation")
+st.title("📝 S1 | Ex. 1 : Introduction & Enjeux")
+st.markdown("### Objectif : Maîtriser les définitions et l'histoire de la quantification.")
 
 st.markdown("""
-Révisez les concepts clés de la première séance.
 **Consigne :** Répondez à toutes les questions puis cliquez sur **Valider** pour voir les corrections.
 """)
 
-# --- 1. CONFIGURATION DES LIENS ---
-# Mettez ici le lien vers votre fichier PDF brut (Raw)
-BASE_URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/s%C3%A9ance_1.pdf"
+# --- CONFIGURATION DES LIENS ---
+# Lien vers vos slides (Format PDF RAW)
+BASE_URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_1.pdf"
 
-# --- 2. GESTION DE L'ÉTAT ---
+# --- GESTION DE L'ÉTAT ---
 if 'quiz_submitted' not in st.session_state:
     st.session_state.quiz_submitted = False
 
@@ -29,8 +30,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Une branche des mathématiques uniquement dédiée au calcul de probabilités.",
                 "Un outil informatique servant exclusivement à créer des graphiques."
             ],
-            "explanation": "La statistique couvre tout le cycle de vie de la donnée, de la collecte à l'interprétation.",
-            "slide_page": 64 
+            "explanation": "La statistique couvre tout le cycle de vie de la donnée : collecte, description, analyse et interprétation.",
+            "slide_page": 63 
         },
         {
             "question": "2. Pourquoi la quantification est-elle considérée comme une 'construction' ?",
@@ -41,8 +42,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Parce qu'il faut construire des ordinateurs puissants pour les calculer.",
                 "Parce que les statistiques ne reposent sur aucune base réelle."
             ],
-            "explanation": "Le choix de ce qu'on compte et comment on le compte crée une représentation spécifique du monde.",
-            "slide_page": 66
+            "explanation": "Le processus de quantification crée une réalité qui reflète la volonté du producteur de la statistique.",
+            "slide_page": 65
         },
         {
             "question": "3. Selon les 'Lamentations d'Ipou-our' (Égypte, 1750 av. J.-C.), que se passe-t-il quand les registres administratifs sont détruits ?",
@@ -53,7 +54,7 @@ if 'shuffled_questions' not in st.session_state:
                 "Les scribes sont condamnés à l'exil par le Pharaon.",
                 "La population cesse de payer l'impôt mais continue de respecter les propriétés."
             ],
-            "explanation": "Sans registres statistiques, la gestion de la propriété et l'administration s'effondrent.",
+            "explanation": "Sans registres, 'le grain d'Égypte est un bien commun' et celui qui n'avait rien devient propriétaire, marquant l'effondrement de l'ordre.",
             "slide_page": 26
         },
         {
@@ -65,7 +66,7 @@ if 'shuffled_questions' not in st.session_state:
                 "Cartographier les territoires conquis.",
                 "Lister les généalogies des familles royales."
             ],
-            "explanation": "Les premières statistiques servaient à la gestion comptable et fiscale des cités.",
+            "explanation": "Les tablettes servaient à comptabiliser la distribution de rations d'orge ou le paiement de l'impôt.",
             "slide_page": 24
         },
         {
@@ -77,8 +78,8 @@ if 'shuffled_questions' not in st.session_state:
                 "Une liste de conseils philosophiques pour gouverner.",
                 "Le calendrier des fêtes religieuses de l'Empire."
             ],
-            "explanation": "Ce document servait de tableau de bord pour la gestion des ressources impériales.",
-            "slide_page": 25
+            "explanation": "Ce document détaillait les ressources de l'État, les citoyens sous les armes, les flottes et les impôts.",
+            "slide_page": 27
         },
         {
             "question": "6. D'où vient étymologiquement le terme 'Statistique' (Statistik) ?",
@@ -89,7 +90,7 @@ if 'shuffled_questions' not in st.session_state:
                 "Du grec 'Stater', une ancienne unité de mesure de poids.",
                 "De l'anglais 'State-istics', l'art de gouverner."
             ],
-            "explanation": "L'école allemande voyait la statistique comme l'outil de description de l'État.",
+            "explanation": "L'approche allemande (Statistik) se définissait comme la science de la description de l'État.",
             "slide_page": 41
         },
         {
@@ -101,11 +102,11 @@ if 'shuffled_questions' not in st.session_state:
                 "La fin de la guerre de Cent Ans qui a permis de lever de nouvelles armées.",
                 "L'invention de la comptabilité en partie double par les Italiens."
             ],
-            "explanation": "Le besoin de quantifier la richesse est né de l'essor du mercantilisme.",
+            "explanation": "L'arrivée des métaux précieux et la compétition économique entre pays européens ont stimulé le besoin de mesures.",
             "slide_page": 34
         },
         {
-            "question": "8. Quelle est la nouveauté dans l'Arithmétique Politique de William Petty (1676) ?",
+            "question": "8. Qu'est-ce que l'Arithmétique Politique de William Petty (1676) ?",
             "correct_text": "Une méthode s'exprimant par le nombre, le poids ou la mesure plutôt que par des mots superlatifs.",
             "options": [
                 "Un manuel de comptabilité pour les marchands de Londres.",
@@ -113,7 +114,7 @@ if 'shuffled_questions' not in st.session_state:
                 "Une théorie mathématique sur la probabilité de gagner aux jeux de hasard.",
                 "Un dictionnaire de termes économiques."
             ],
-            "explanation": "Petty a introduit une méthode argumentative basée sur des preuves tangibles et mesurables.",
+            "explanation": "Petty a choisi de s'exprimer en termes de nombre, de poids ou de mesure plutôt qu'avec des mots comparatifs.",
             "slide_page": 36
         },
         {
@@ -125,7 +126,7 @@ if 'shuffled_questions' not in st.session_state:
                 "L'allemande est centrée sur le commerce et l'anglaise sur la démographie.",
                 "L'allemande est théorique alors que l'anglaise est purement administrative."
             ],
-            "explanation": "Le cours oppose la description d'État (allemande) à l'analyse probabiliste (anglaise).",
+            "explanation": "L'école allemande est descriptive (description de l'État) tandis que l'anglaise est probabiliste et prédictive.",
             "slide_page": 43
         },
         {
@@ -137,8 +138,8 @@ if 'shuffled_questions' not in st.session_state:
                 "À toutes les étapes : collecte, description, analyse et interprétation.",
                 "Jamais, si le statisticien utilise des formules mathématiques officielles."
             ],
-            "explanation": "Le biais peut survenir dès la formulation des questions ou lors du choix des données analysées.",
-            "slide_page": 59
+            "explanation": "Le biais peut survenir à la collecte, la description, l'analyse ou l'interprétation.",
+            "slide_page": 58
         },
         {
             "question": "11. Quel exemple le cours utilise-t-il pour montrer qu'un chiffre peut créer deux réalités différentes ?",
@@ -149,7 +150,7 @@ if 'shuffled_questions' not in st.session_state:
                 "L'utilisation de différentes couleurs sur une carte électorale.",
                 "Le calcul de la moyenne plutôt que de la médiane pour les salaires."
             ],
-            "explanation": "Deux indicateurs réels peuvent orienter l'argumentation de manière différente.",
+            "explanation": "On peut présenter '2 millions de personnes sans emploi' ou 'un taux de chômage à son plus bas' pour décrire la même réalité.",
             "slide_page": 54
         },
         {
@@ -161,7 +162,7 @@ if 'shuffled_questions' not in st.session_state:
                 "Comprendre l'idée transmise par les chiffres et identifier les points forts/faibles de l'argumentation.",
                 "Prouver que les sciences sociales sont plus précises que les sciences dures."
             ],
-            "explanation": "L'objectif est d'acquérir un esprit critique face aux arguments chiffrés.",
+            "explanation": "L'enjeu est de comprendre l'idée transmise et d'identifier les forces et faiblesses de l'argumentation chiffrée.",
             "slide_page": 68
         }
     ]
@@ -171,7 +172,7 @@ if 'shuffled_questions' not in st.session_state:
     
     st.session_state.shuffled_questions = raw_questions
 
-# --- 3. AFFICHAGE DU FORMULAIRE ---
+# --- AFFICHAGE DU FORMULAIRE ---
 with st.form(key='quiz_form_inline'):
     user_answers = {}
     score = 0
@@ -208,7 +209,7 @@ with st.form(key='quiz_form_inline'):
         st.session_state.quiz_submitted = True
         st.rerun()
 
-# --- 4. RÉSULTATS ---
+# --- RÉSULTATS ---
 if st.session_state.quiz_submitted:
     st.metric("Votre Résultat Final", f"{score} / {len(st.session_state.shuffled_questions)}")
     
