@@ -8,15 +8,27 @@ from datetime import datetime
 
 st.set_page_config(page_title="S2 | Ex3 : Groupement", page_icon="📈", layout="wide")
 
-# --- CONFIGURATION ---
-URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=15"
-
 st.title("📈 S2 | Ex. 3 : Groupement (Variable Continue)")
-st.markdown("""
-**Objectif :** Transformer une variable continue (Salaire, Note...) en classes d'intervalles.
-* **Mode Manuel :** Comprendre l'inclusion/exclusion des bornes.
-* **Mode Excel :** Utiliser la fonction "Grouper" du TCD.
-""")
+
+# NEW CONTEXT SECTION
+with st.expander("📖 Contexte & Objectifs", expanded=True):
+    st.markdown("""
+    ### 🎯 Objectif
+    Transformer une variable quantitative continue (Salaire, Note, Âge) en classes d'intervalles (Discrétisation).
+
+    ### 📖 Le sens de l'exercice
+    Contrairement aux catégories, les variables continues ont une infinité de valeurs (personne n'a exactement le même salaire au centime près). Un simple comptage rendrait le tableau illisible.
+    
+    Il faut donc **créer des "tiroirs" (intervalles)**. 
+    * *Exemple :* On ne compte pas les gens qui gagnent 1500,02€, mais ceux qui sont dans **$[1500 ; 2000[$**.
+    * C'est un compromis : on perd en précision (valeur exacte) pour gagner en **synthèse** (vision globale).
+    """)
+
+# HARMONIZATION: Standardized Tab Names
+tab_man, tab_xl = st.tabs(["📝 Mode Manuel (Comprendre)", "📊 Mode Excel (Pratiquer)"])
+
+
+URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=15"
 
 SCENARIOS = {
     "notes": {
@@ -39,7 +51,6 @@ SCENARIOS = {
     }
 }
 
-tab_man, tab_xl = st.tabs(["📝 Mode Manuel", "📊 Mode Excel"])
 
 # ==============================================================================
 # ONGLET 1 : MANUEL

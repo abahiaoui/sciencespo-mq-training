@@ -1,15 +1,25 @@
 import streamlit as st
 import random
 
-# Configuration de la page
-st.set_page_config(page_title="S1 | Ex1 : Introduction", page_icon="📝")
+# HARMONIZATION: Use wide layout for consistency
+st.set_page_config(page_title="S1 | Ex1 : Introduction", page_icon="📝", layout="wide")
 
 st.title("📝 S1 | Ex. 1 : Introduction & Enjeux")
-st.markdown("### Objectif : Maîtriser les définitions et l'histoire de la quantification.")
 
-st.markdown("""
-**Consigne :** Répondez à toutes les questions puis cliquez sur **Valider** pour voir les corrections.
-""")
+# NEW CONTEXT SECTION
+with st.expander("📖 Contexte & Objectifs", expanded=True):
+    st.markdown("""
+    ### 🎯 Objectif
+    Maîtriser les définitions et l'histoire de la quantification pour ne pas voir les chiffres comme de simples vérités mathématiques.
+
+    ### 📖 Pourquoi ce quiz ?
+    Comme vu en cours (*Slides Séance 1*), la statistique est **"la science de la collecte, description, analyse et interprétation"**. 
+    
+    Mais elle est aussi un outil de **pouvoir**. Du recensement antique (pour lever l'impôt) à l'arithmétique politique de William Petty, le chiffre ne se contente pas de décrire le monde : **il construit une réalité**. Ce quiz vérifie votre compréhension de ces enjeux critiques : biais, objectivité et argumentation.
+    """)
+
+st.markdown("---")
+st.markdown("**Consigne :** Répondez à toutes les questions puis cliquez sur **Valider**.")
 
 # --- CONFIGURATION DES LIENS ---
 # Lien vers vos slides (Format PDF RAW)

@@ -8,15 +8,27 @@ from datetime import datetime
 
 st.set_page_config(page_title="S2 | Ex2 : Distribution Simple", page_icon="📊", layout="wide")
 
-# --- CONFIGURATION ---
+st.title("📊 S2 | Ex. 2 : Distribution (Variable Catégorielle)")
+
+# NEW CONTEXT SECTION
+with st.expander("📖 Contexte & Objectifs", expanded=True):
+    st.markdown("""
+    ### 🎯 Objectif
+    Maîtriser le passage des données brutes (liste d'individus) au tableau de distribution (tableau d'effectifs).
+
+    ### 📖 Le sens de l'exercice
+    Face à une base de données de 10 000 lignes, le cerveau humain est aveugle. 
+    L'analyste doit **réduire l'information** pour la rendre intelligible. Pour une variable qualitative (ex: Diplôme, Avis), cela consiste à compter les occurrences de chaque catégorie.
+    
+    * **Mode Manuel :** On apprend à "dépouiller" les données (faire des bâtons) pour comprendre la logique d'agrégation.
+    * **Mode Excel :** On utilise le **Tableau Croisé Dynamique (TCD)**, l'outil roi en entreprise pour automatiser ce comptage instantanément.
+    """)
+
+# HARMONIZATION: Standardized Tab Names
+tab_manual, tab_excel = st.tabs(["📝 Mode Manuel (Comprendre)", "📊 Mode Excel (Pratiquer)"])
+
 URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=15"
 
-st.title("📊 S2 | Ex. 2 : Distribution (Variable Catégorielle)")
-st.markdown("""
-**Objectif :** Maîtriser le passage des données brutes au tableau de distribution.
-* **Mode Manuel :** Pour comprendre la logique de comptage.
-* **Mode Excel :** Pour automatiser avec le Tableau Croisé Dynamique (TCD).
-""")
 
 # --- SCÉNARIOS ---
 SCENARIOS = {
@@ -42,8 +54,6 @@ SCENARIOS = {
     }
 }
 
-# --- ONGLETS ---
-tab_manual, tab_excel = st.tabs(["📝 Mode Manuel", "📊 Mode Excel (TCD)"])
 
 # ==============================================================================
 # ONGLET 1 : MODE MANUEL

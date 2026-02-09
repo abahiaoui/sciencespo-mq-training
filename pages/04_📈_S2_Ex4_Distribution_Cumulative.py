@@ -8,15 +8,24 @@ from datetime import datetime
 
 st.set_page_config(page_title="S2 | Ex4 : Cumul", page_icon="📈", layout="wide")
 
-# --- CONFIGURATION ---
-URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=19"
-
 st.title("📈 S2 | Ex. 4 : Distribution Cumulative")
-st.markdown("""
-**Objectif :** Calculer les **Effectifs Cumulés ** pour constituer une distribution cumulative.
-Cette étape est indispensable pour déterminer la Médiane et les Quartiles.
-* **Mode Excel :** Savoir utiliser une **fonction** (SOMME) Excel. Savoir appliquer le **remplissage automatique** de formules. Savoir appliquer le signe dollar ($) pour **verrouiller** (ancrer) une cellule.
-""")
+
+# NEW CONTEXT SECTION
+with st.expander("📖 Contexte & Objectifs", expanded=True):
+    st.markdown("""
+    ### 🎯 Objectif
+    Calculer les **Effectifs Cumulés ($N_i$)** pour situer les valeurs les unes par rapport aux autres.
+
+    ### 📖 Le sens de l'exercice
+    Savoir qu'il y a 20 personnes dans la tranche "Moyen" est utile, mais cela ne nous dit pas combien de personnes sont "au-dessus" ou "en-dessous".
+    
+    Le cumul est l'outil qui permet de **classer la population**. C'est une étape technique indispensable pour déterminer :
+    1.  **La Médiane :** La valeur qui coupe la population en deux moitiés égales (50%).
+    2.  **Les Quartiles :** Les valeurs qui séparent les 25% les plus modestes ou les 25% les plus riches.
+    """)
+
+# HARMONIZATION: Standardized Tab Names
+tab_man, tab_xl = st.tabs(["📝 Mode Manuel (Comprendre)", "📊 Mode Excel (Pratiquer)"])
 
 # --- SCÉNARIOS ---
 SCENARIOS = {
@@ -40,7 +49,7 @@ SCENARIOS = {
     }
 }
 
-tab_man, tab_xl = st.tabs(["📝 Mode Manuel (Comprendre)", "📊 Mode Excel (Pratiquer)"])
+URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=19"
 
 # ==============================================================================
 # ONGLET 1 : MANUEL
