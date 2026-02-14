@@ -56,7 +56,7 @@ SCENARIOS = {
 # ONGLET 1 : MANUEL
 # ==============================================================================
 with tab_man:
-    st.subheader("1. Création de classes à la main")
+    st.subheader("1. Calcul manuel")
     
     with st.sidebar:
         st.markdown("---")
@@ -129,7 +129,7 @@ with tab_man:
 # ONGLET 2 : EXCEL
 # ==============================================================================
 with tab_xl:
-    st.subheader("2. Groupement automatique Excel")
+    st.subheader("2. Fonction Excel")
     
     with st.sidebar:
         st.header("📊 Aide : Excel")

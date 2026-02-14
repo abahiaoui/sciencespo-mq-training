@@ -59,7 +59,7 @@ SCENARIOS = {
 # ONGLET 1 : MODE MANUEL
 # ==============================================================================
 with tab_manual:
-    st.subheader("1. Exercice de comptage manuel")
+    st.subheader("1. Calcul manuel")
     
     with st.sidebar:
         st.markdown("---")
@@ -134,7 +134,7 @@ with tab_manual:
 # ONGLET 2 : MODE EXCEL
 # ==============================================================================
 with tab_excel:
-    st.subheader("2. Automatisation Excel")
+    st.subheader("2. Fonction Excel")
     
     with st.sidebar:
         st.header("📊 Aide : Mode Excel")

@@ -55,7 +55,7 @@ URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training
 # ONGLET 1 : MANUEL
 # ==============================================================================
 with tab_man:
-    st.subheader("1. Calcul des cumuls à la main")
+    st.subheader("1. Calcul manuel")
     
     with st.sidebar:
         st.header("📝 Aide : Cumul")
@@ -148,7 +148,7 @@ with tab_man:
 # ONGLET 2 : EXCEL
 # ==============================================================================
 with tab_xl:
-    st.subheader("2. Cumul automatique sur Excel")
+    st.subheader("2. Fonction Excel")
 
     with st.sidebar:
         st.markdown("---")

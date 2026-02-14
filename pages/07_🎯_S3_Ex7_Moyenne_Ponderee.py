@@ -3,12 +3,14 @@ import pandas as pd
 import numpy as np
 import io
 import random
+from datetime import datetime
 
-st.set_page_config(page_title="S2 | Ex7 : Moyenne Pondérée", page_icon="🎯", layout="wide")
+
+st.set_page_config(page_title="S3 | Ex7 : Moyenne Pondérée", page_icon="🎯", layout="wide")
 
 URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=27"
 
-st.title("🎯 S2 | Ex. 7 : La Moyenne Pondérée")
+st.title("🎯 S3 | Ex. 7 : La Moyenne Pondérée")
 
 SCENARIOS = {
     "academic": {
@@ -18,13 +20,24 @@ SCENARIOS = {
     "market": {
         "titre": "Panier (Prix x Qty)", "l_val": "Prix", "l_w": "Qté",
         "items": ["Pâtes", "Viande", "Légumes", "Eau"], "min": 2, "max": 15, "w": [5, 2, 4, 6]
+    },
+    "payroll": {
+        "titre": "Masse Salariale", "l_val": "Salaire", "l_w": "Effectif",
+        "items": ["Ouvriers", "Employés", "Cadres", "Dirigeants"], 
+        "min": 1500, "max": 5000, "w": [50, 100, 25, 5] 
     }
 }
 
 with st.expander("📖 Contexte & Objectifs", expanded=True):
     st.markdown("""
     ### 🎯 Objectif
-    Calculer une moyenne quand les éléments n'ont pas la même importance (Poids/Coefficients).
+    Calculer une moyenne quand les éléments n'ont pas la même importance (Poids/Coefficients/Effectifs).
+
+    ### 🧠 Le sens de l'exercice
+    Dans la réalité, 1 individu $\\neq$ 1 individu :
+    * **Scolarité :** Un partiel (Coef 2) compte moins qu'un final (Coef 6).
+    * **Sociologie :** Le salaire moyen d'une région (1M habitants) pèse plus que celui d'un village (100 habitants).
+    * **Commerce :** Le prix moyen d'un panier dépend de la quantité achetée de chaque produit.
     """)
 
 if st.button("🔄 Nouveau Cas"):
@@ -32,24 +45,24 @@ if st.button("🔄 Nouveau Cas"):
         if k in st.session_state: del st.session_state[k]
     st.rerun()
 
-tab_man, tab_xl = st.tabs(["📝 Mode Manuel", "📊 Mode Excel"])
+tab_man, tab_xl = st.tabs(["📝 Mode Manuel (Comprendre)", "📊 Mode Excel (Pratiquer)"])
 
 # --- MANUEL ---
 with tab_man:
-    st.subheader("Calcul 'à la main'")
+    st.subheader("1. Calcul manuel")
     
     with st.sidebar:
-        st.header("📝 Aide : Pondération")
+        st.header("📝 Aide Mémoire (Manuel)")
+        st.info("**Principe :** Chaque valeur tire la moyenne vers elle avec une force proportionnelle à son poids.")
+        st.latex(r"\bar{x} = \frac{\sum (x_i \times p_i)}{\sum p_i}")
         st.markdown(f"""
-        📄 <a href="{URL_SLIDES}" target="_blank">Slides (PDF)</a>
+        **Algorithme :**
+        1. Multiplier chaque Note par son Poids.
+        2. Somme des résultats (Numérateur).
+        3. Somme des Poids (Dénominateur).
+        4. Diviser le tout.
         
-        **Formule :**
-        $$ \\bar{{x}} = \\frac{{\\sum (x_i \\times p_i)}}{{\\sum p_i}} $$
-        
-        **Étapes :**
-        1. Multiplier chaque Note par son Coef.
-        2. Faire la somme des résultats (Numérateur).
-        3. Diviser par la somme des Coefs (Dénominateur).
+        📄 <a href="{URL_SLIDES}" target="_blank">Voir les Slides</a>
         """, unsafe_allow_html=True)
     
     if 'wm_man_data' not in st.session_state:
@@ -79,36 +92,59 @@ with tab_man:
 
 # --- EXCEL ---
 with tab_xl:
-    st.subheader("Calcul sur données groupées")
+    st.subheader("2. Fonction Excel")
     
     with st.sidebar:
-        st.header("📊 Aide : Excel")
+        st.header("📝 Aide Mémoire (Excel)")
         st.markdown("""
-        **Fonction Magique :**
+        **La fonction magique :**
         `=SOMMEPROD(Plage1; Plage2)`
         
-        Cette fonction multiplie les lignes et fait la somme (le numérateur).
+        Cette fonction fait l'étape 1 et 2 d'un coup (Multiplication + Somme).
         
-        **Formule Complète :**
-        `=SOMMEPROD(Notes; Coefs) / SOMME(Coefs)`
+        **Formule complète :**
+        ```excel
+        = SOMMEPROD(Notes; Coefs) / SOMME(Coefs)
+        ```
         """)
     
     if 'wm_xl_data' not in st.session_state:
-        cats = ["Ouvriers", "Employés", "Cadres", "Dirigeants"]
-        eff = [random.randint(50, 200) for _ in cats]
-        sal = [1600, 2000, 3500, 8000]
-        st.session_state.wm_xl_data = pd.DataFrame({"Cat": cats, "Effectif": eff, "Salaire": sal})
+        # USE THE SCENARIO INSTEAD OF HARDCODED LISTS
+        s_key = random.choice(list(SCENARIOS.keys()))
+        scen = SCENARIOS[s_key]
+        
+        # Generate random data based on scenario limits
+        vals = [random.randint(scen["min"], scen["max"]) for _ in scen["items"]]
+        weights = [random.randint(10, 200) for _ in scen["items"]]
+        
+        st.session_state.wm_xl_data = pd.DataFrame({
+            "Catégorie": scen["items"], 
+            scen["l_w"]: weights, 
+            scen["l_val"]: vals
+        })
+        st.session_state.wm_xl_scen = scen
+
     
     df_x = st.session_state.wm_xl_data
+    scen_x = st.session_state.wm_xl_scen
+
     
     out = io.BytesIO()
     with pd.ExcelWriter(out, engine='xlsxwriter') as writer:
         df_x.to_excel(writer, index=False)
-    st.download_button("📥 Télécharger", out.getvalue(), "MQ_Ponderee.xlsx")
-    
+    ts = datetime.now().strftime("%H%M")
+    file_name = f"MQ_S3_Ex7_Moyenne_Ponderee_{scen_x['titre']}_{ts}.xlsx"
+    st.download_button(
+    label=f"📥 Télécharger Données ({file_name})", 
+    data=out.getvalue(), 
+    file_name=file_name
+    )    
     u_val = st.number_input("Salaire Moyen Global :", step=1.0)
     if st.button("Correction"):
-        res = sum(df_x["Effectif"] * df_x["Salaire"]) / sum(df_x["Effectif"])
+        col_w = scen_x["l_w"]   # e.g., "Coef", "Qté", "Effectif"
+        col_val = scen_x["l_val"] # e.g., "Note", "Prix", "Salaire"
+
+        res = sum(df_x[col_w] * df_x[col_val]) / sum(df_x[col_w])
         if abs(u_val - res) < 1:
             st.success(f"✅ Correct ! ({res:.0f})")
             st.balloons()

@@ -3,12 +3,13 @@ import pandas as pd
 import numpy as np
 import io
 import random
+from datetime import datetime
 
-st.set_page_config(page_title="S2 | Ex6 : Moyenne", page_icon="🎯", layout="wide")
+st.set_page_config(page_title="S3 | Ex6 : Moyenne", page_icon="🎯", layout="wide")
 
 URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=26"
 
-st.title("🎯 S2 | Ex. 6 : La Moyenne Simple")
+st.title("🎯 S3 | Ex. 6 : La Moyenne Simple")
 
 SCENARIOS = {
     "notes": {"titre": "Notes Étudiant", "unit": "/20", "min": 0, "max": 20, "digits": 1},
@@ -19,7 +20,12 @@ SCENARIOS = {
 with st.expander("📖 Contexte & Objectifs", expanded=True):
     st.markdown("""
     ### 🎯 Objectif
-    Calculer le point d'équilibre qui prend en compte toutes les valeurs.
+    Calculer le point d'équilibre mathématique de la distribution.
+
+    ### 🧠 Le sens de l'exercice
+    La moyenne répond à la question : **"Si on mettait tout en commun et qu'on partageait équitablement, combien chacun aurait-il ?"**
+    
+    C'est le centre de gravité des données. Contrairement à la médiane, la moyenne prend en compte la valeur exacte de chaque individu (ce qui la rend sensible aux extrêmes).
     """)
 
 if st.button("🔄 Nouveau Cas"):
@@ -27,22 +33,23 @@ if st.button("🔄 Nouveau Cas"):
         if k in st.session_state: del st.session_state[k]
     st.rerun()
 
-tab_man, tab_xl = st.tabs(["📝 Mode Manuel", "📊 Mode Excel"])
+tab_man, tab_xl = st.tabs(["📝 Mode Manuel (Comprendre)", "📊 Mode Excel (Pratiquer)"])
 
 # --- MANUEL ---
 with tab_man:
-    st.subheader("Calcul petit échantillon")
+    st.subheader("1. Calcul manuel")
     
     with st.sidebar:
-        st.header("📝 Aide : Moyenne")
+        st.header("📝 Aide Mémoire (Manuel)")
+        st.info("**Formule :** Somme totale divisée par le nombre d'individus.")
+        st.latex(r"\bar{x} = \frac{\sum x_i}{N}")
         st.markdown(f"""
-        📄 <a href="{URL_SLIDES}" target="_blank">Slides (PDF)</a>
-        
-        **Formule :**
-        $$ \\bar{{x}} = \\frac{{\\sum x_i}}{{N}} $$
-        
         **En français :**
-        (Somme de toutes les valeurs) divisé par (Nombre de valeurs).
+        1. Additionner toutes les valeurs.
+        2. Compter combien il y a de valeurs.
+        3. Diviser (1) par (2).
+        
+        📄 <a href="{URL_SLIDES}" target="_blank">Voir les Slides</a>
         """, unsafe_allow_html=True)
     
     if 'mean_man_data' not in st.session_state:
@@ -70,15 +77,18 @@ with tab_man:
 
 # --- EXCEL ---
 with tab_xl:
-    st.subheader("Fonction Excel")
+    st.subheader("2. Fonction Excel")
     
     with st.sidebar:
-        st.header("📊 Aide : Excel")
-        st.markdown("""
-        **Fonction :**
-        `=MOYENNE(Plage)`
+        st.header("📝 Aide Mémoire (Excel)")
+        st.info("**Excel :** Ne calculez rien, utilisez la fonction.")
         
-        *En anglais :* `=AVERAGE(Range)`
+        st.markdown("""
+        **Syntaxe Excel :**
+        * 🇫🇷 `=MOYENNE(Plage)`
+        * 🇺🇸 `=AVERAGE(Range)`
+        
+        ⚠️ Ne sélectionnez pas les entêtes (textes), uniquement les cellules chiffrées.
         """)
     
     if 'mean_xl_data' not in st.session_state:
@@ -90,12 +100,20 @@ with tab_xl:
         st.session_state.mean_xl_scen = scen
     
     df_x = st.session_state.mean_xl_data
+    scen_x = st.session_state.mean_xl_scen
+
     
     out = io.BytesIO()
     with pd.ExcelWriter(out, engine='xlsxwriter') as writer:
         df_x.to_excel(writer, index=False)
-    st.download_button("📥 Télécharger Excel", out.getvalue(), "MQ_Moyenne.xlsx")
-    
+    ts = datetime.now().strftime("%H%M")
+    file_name = f"MQ_S3_Ex6_Moyenne_Simple_{scen_x['titre']}_{ts}.xlsx"
+    st.download_button(
+    label=f"📥 Télécharger Données ({file_name})", 
+    data=out.getvalue(), 
+    file_name=file_name
+    )
+
     u_val = st.number_input("Résultat Excel :", step=0.01)
     if st.button("Correction"):
         t_val = df_x.iloc[:, 1].mean()

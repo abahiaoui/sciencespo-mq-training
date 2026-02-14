@@ -3,13 +3,15 @@ import pandas as pd
 import numpy as np
 import io
 import random
+from datetime import datetime
 
-st.set_page_config(page_title="S2 | Ex5 : Médiane", page_icon="🎯", layout="wide")
+
+st.set_page_config(page_title="S3 | Ex5 : Médiane", page_icon="🎯", layout="wide")
 
 # --- URL SLIDES (A ajuster selon votre repo) ---
 URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf#page=29"
 
-st.title("🎯 S2 | Ex. 5 : La Médiane")
+st.title("🎯 S3 | Ex. 5 : La Médiane")
 
 SCENARIOS = {
     "salaires": {
@@ -29,10 +31,12 @@ SCENARIOS = {
 with st.expander("📖 Contexte & Objectifs", expanded=True):
     st.markdown("""
     ### 🎯 Objectif
-    Trouver la valeur centrale qui sépare la population en deux moitiés égales.
-    
-    ### 📖 Pourquoi la médiane ?
-    Contrairement à la moyenne, la médiane n'est pas influencée par les valeurs extrêmes (outliers). C'est l'indicateur du "niveau de vie standard".
+    Trouver la valeur centrale qui sépare la population en deux moitiés égales (50% en dessous, 50% au-dessus).
+
+    ### 🧠 Le sens de l'exercice
+    Pourquoi ne pas juste utiliser la Moyenne ?
+    * **Le Piège :** Dans une start-up de 10 personnes, si le PDG gagne 1M€ et les 9 autres 30k€, le salaire moyen est de ~127k€. C'est trompeur !
+    * **La Solution :** La médiane sera de 30k€. C'est l'indicateur du **"niveau de vie standard"**, car il n'est pas influencé par les valeurs extrêmes (outliers).
     """)
 
 if st.button("🔄 Nouveau Cas"):
@@ -47,15 +51,17 @@ with tab_man:
     st.subheader("1. Calcul manuel")
     
     with st.sidebar:
-        st.header("📝 Aide : Médiane")
+        st.header("📝 Aide Mémoire (Manuel)")
+        st.info("**Définition :** La valeur du milieu quand tout est trié.")
+        
         st.markdown(f"""
-        📄 <a href="{URL_SLIDES}" target="_blank">Slides (PDF)</a>
+        **Méthode Manuelle :**
+        1. **TRIER** la liste (Petit $\\to$ Grand).
+        2. Repérer la position centrale.
+        * *Impair :* $(N+1)/2$ ème valeur.
+        * *Pair :* Moyenne des 2 valeurs centrales.
         
-        **Méthode :**
-        1. **TRIER** la liste du plus petit au plus grand.
-        2. Prendre la valeur du milieu.
-        
-        *Astuce :* Si N est impair, le rang est $(N+1)/2$.
+        📄 <a href="{URL_SLIDES}" target="_blank">Voir les Slides</a>
         """, unsafe_allow_html=True)
     
     if 'med_data' not in st.session_state:
@@ -92,14 +98,15 @@ with tab_xl:
     st.subheader("2. Fonction Excel")
     
     with st.sidebar:
-        st.header("📊 Aide : Excel")
+        st.header("📝 Aide Mémoire (Excel")
+        st.info("**Excel :** Ne calculez rien, utilisez la fonction.")
+        
         st.markdown("""
-        **Fonction :**
-        `=MEDIANE(Plage)`
+        **Syntaxe :**
+        * 🇫🇷 `=MEDIANE(Plage)`
+        * 🇺🇸 `=MEDIAN(Range)`
         
-        *En anglais :* `=MEDIAN(Range)`
-        
-        ⚠️ Ne sélectionnez pas les entêtes, juste les chiffres !
+        *Exemple :* `=MEDIANE(B2:B500)`
         """)
     
     if 'med_xl_data' not in st.session_state:
@@ -113,11 +120,22 @@ with tab_xl:
     
     df_x = st.session_state.med_xl_data
     scen_x = st.session_state.med_xl_scen
+
+
+    
+
     
     out = io.BytesIO()
     with pd.ExcelWriter(out, engine='xlsxwriter') as writer:
         df_x.to_excel(writer, index=False)
-    st.download_button("📥 Télécharger Données", out.getvalue(), f"MQ_Mediane.xlsx")
+    
+    ts = datetime.now().strftime("%H%M")
+    file_name = f"MQ_S3_Ex5_Mediane_{scen_x['titre']}_{ts}.xlsx"
+    st.download_button(
+    label=f"📥 Télécharger Données ({file_name})", 
+    data=out.getvalue(), 
+    file_name=file_name
+    )
     
     u_val = st.number_input(f"Résultat Excel ({scen_x['unit']}) :", step=1.0)
     if st.button("Correction"):
