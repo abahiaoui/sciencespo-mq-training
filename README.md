@@ -60,4 +60,4 @@ This tool was developed to support the Quantitative Methods course at Sciences P
 If you encounter any technical issues or have questions about the exercises, please feel free to contact me:
 
 * 📧 **Sciences Po:** [ahmed.bahiaoui@sciencespo.fr](mailto:ahmed.bahiaoui@sciencespo.fr)
-* 📧 **Personal (Fallback):** [ahmed.bahiaoui.mail@gmail.com](mailto:ahmed.bahiaoui.mail@gmail.com)
+* 📧 **Fallback:** [ahmed.bahiaoui.mail@gmail.com](mailto:ahmed.bahiaoui.mail@gmail.com)
