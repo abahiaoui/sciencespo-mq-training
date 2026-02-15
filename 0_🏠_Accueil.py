@@ -23,8 +23,13 @@ Cette application vous permet de réviser les notions théoriques et de perfecti
 st.divider()
 
 st.markdown("""
-### 👨‍💻 Contact
+### 👨‍💻 Contact & Code Source 
+            
 Cet outil a été développé par **Ahmed BAHIAOUI** pour les étudiants de la première année du collège universitaire de Sciences Po.
+
+* 💻 **Code Source :** Retrouvez le projet sur : [![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?logo=github)](https://github.com/abahiaoui/sciencespo-mq-training)
+            
+
 
 Si vous rencontrez un problème technique ou avez une question sur les exercices, n'hésitez pas à me contacter :
 * 📧 **Sciences Po :** [ahmed.bahiaoui@sciencespo.fr](mailto:ahmed.bahiaoui@sciencespo.fr)

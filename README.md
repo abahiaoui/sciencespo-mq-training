@@ -29,9 +29,21 @@ Every exercise is generated randomly upon request. Contexts vary between **Socio
 * **S2 | Cumulative Distribution:**
     * *Manual:* Calculating running totals ($N_i$).
     * *Excel:* Using anchored formulas (`=SUM($B$2:B2)`).
+* **S3 | Central Tendency:**
+    * *Manual:* Calculating Median, Simple Mean, and Weighted Mean.
+    * *Excel:* Using functions `MEDIAN`, `AVERAGE`, and `SUMPRODUCT`.
+* **S3 | Dispersion (Variance & Std Dev):**
+    * *Manual:* Step-by-step decomposition (Difference $\to$ Square $\to$ Sum $\to$ Root).
+    * *Excel:* Understanding Population functions (`VAR.P`, `STDEV.P`) vs Sample functions.
 
-## 🛠️ Installation & Local Usage
+## 💻 Usage
 
+### 🌐 Online (Recommended)
+You can use the application directly in your browser without installing anything. This is the best method for students.
+
+👉 **[Click here to open the App](https://sciencespo-mq-training.streamlit.app/)**
+
+### 🛠️ Local Installation (For Developers)
 To run this app locally on your machine:
 
 1.  **Clone the repository:**
