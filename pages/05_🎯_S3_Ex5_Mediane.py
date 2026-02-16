@@ -15,11 +15,11 @@ st.title("🎯 S3 | Ex. 5 : La Médiane")
 
 SCENARIOS = {
     "salaires": {
-        "titre": "Salaires Start-up", "unit": "€", "min": 1500, "max": 2500, "step": 50,
+        "titre": "Salaires en Start-up", "unit": "€", "min": 1500, "max": 2500, "step": 50,
         "outlier_min": 12000, "outlier_max": 25000, "label": "Salaire"
     },
     "immo": {
-        "titre": "Prix Immobilier", "unit": "k€", "min": 200, "max": 400, "step": 10,
+        "titre": "Prix d'Immobilier", "unit": "k€", "min": 200, "max": 400, "step": 10,
         "outlier_min": 2000, "outlier_max": 5000, "label": "Prix"
     },
     "social": {
@@ -76,7 +76,13 @@ with tab_man:
     df_m = st.session_state.med_data
     scen_m = st.session_state.med_scen
 
-    st.info(f"**{scen_m['titre']}**. Voici 9 valeurs en vrac. Trouvez la médiane.")
+    st.info(f"""
+    **Contexte :** Vous avez reçu une liste de 9 valeurs de *{scen_m['titre']}* en désordre.
+    **Consigne :** 1. Observez les données brutes à gauche.
+    2. Imaginez-les triées du plus petit au plus grand.
+    3. Identifiez la valeur qui sépare la série en deux moitiés exactes (la 5ème valeur).
+    **Astuce :** Ne calculez pas la moyenne ! Cherchez la position centrale.
+    """)
     
     col1, col2 = st.columns(2)
     with col1:
@@ -122,7 +128,13 @@ with tab_xl:
     scen_x = st.session_state.med_xl_scen
 
 
-    
+    st.info(f"""
+    **Contexte :** Le fichier contient 500 relevés de *{scen_x['titre']}*. Le tri manuel est impossible.
+    **Consigne :** 1. Téléchargez le fichier Excel.
+    2. Utilisez la fonction `=MEDIANE(B2:B501)` (ou `=MEDIAN` en anglais).
+    3. Reportez le résultat ici.
+    **Rappel :** La médiane n'est pas sensible aux valeurs extrêmes (contrairement à la moyenne).
+    """)
 
     
     out = io.BytesIO()

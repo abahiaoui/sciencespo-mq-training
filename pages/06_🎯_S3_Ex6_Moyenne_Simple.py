@@ -12,9 +12,10 @@ URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training
 st.title("🎯 S3 | Ex. 6 : La Moyenne Simple")
 
 SCENARIOS = {
-    "notes": {"titre": "Notes Étudiant", "unit": "/20", "min": 0, "max": 20, "digits": 1},
-    "taille": {"titre": "Taille Basket", "unit": "cm", "min": 180, "max": 215, "digits": 0},
-    "ecran": {"titre": "Temps Écran", "unit": "h", "min": 1, "max": 12, "digits": 1}
+    "notes": {"titre": "Notes d'Étudiant", "unit": "/20", "min": 0, "max": 20, "digits": 1},
+    "taille": {"titre": "Taille de Basketteur", "unit": "cm", "min": 180, "max": 215, "digits": 0},
+    "ecran": {"titre": "Temps Écran", "unit": "h", "min": 1, "max": 12, "digits": 1},
+    "co2": {"titre": "Empreinte Carbone (tCO2/hab)", "unit": "t", "min": 2, "max": 15, "digits": 1}
 }
 
 with st.expander("📖 Contexte & Objectifs", expanded=True):
@@ -61,6 +62,14 @@ with tab_man:
 
     df_m = st.session_state.mean_man_data
     scen_m = st.session_state.mean_man_scen
+
+    st.info(f"""
+    **Contexte :** Voici 5 valeurs de *{scen_m['titre']}*. Nous cherchons le point d'équilibre.
+    **Consigne :** 1. Additionnez toutes les valeurs pour obtenir le total.
+    2. Divisez ce total par le nombre d'éléments (5).
+    3. Arrondissez si nécessaire à 1 ou 2 décimales.
+    **Attention :** N'oubliez aucune valeur dans l'addition !
+    """)
     
     col1, col2 = st.columns(2)
     with col1:
@@ -102,7 +111,13 @@ with tab_xl:
     df_x = st.session_state.mean_xl_data
     scen_x = st.session_state.mean_xl_scen
 
-    
+    st.info(f"""
+    **Contexte :** Vous disposez d'un jeu de données de 200 lignes concernant *{scen_x['titre']}*.
+    **Consigne :** 1. Téléchargez les données.
+    2. Dans Excel, calculez la moyenne de la colonne B via `=MOYENNE(B2:B201)` (ou `=AVERAGE`).
+    **Astuce :** Vérifiez que vous n'avez pas sélectionné l'entête (le texte) dans votre plage.
+    """)
+
     out = io.BytesIO()
     with pd.ExcelWriter(out, engine='xlsxwriter') as writer:
         df_x.to_excel(writer, index=False)

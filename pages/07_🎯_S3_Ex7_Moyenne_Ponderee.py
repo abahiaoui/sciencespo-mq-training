@@ -14,12 +14,25 @@ st.title("🎯 S3 | Ex. 7 : La Moyenne Pondérée")
 
 SCENARIOS = {
     "academic": {
-        "titre": "Semestre (Notes x ECTS)", "l_val": "Note", "l_w": "Coef",
+        "titre": "Note sur le semestre", "l_val": "Note", "l_w": "Coef",
         "items": ["Droit", "Eco", "Histoire", "Anglais"], "min": 8, "max": 18, "w": [6, 6, 4, 3]
     },
-    "market": {
-        "titre": "Panier (Prix x Qty)", "l_val": "Prix", "l_w": "Qté",
-        "items": ["Pâtes", "Viande", "Légumes", "Eau"], "min": 2, "max": 15, "w": [5, 2, 4, 6]
+    "reviews": {
+        "titre": "Avis Clients", 
+        "l_val": "Note /5", 
+        "l_w": "Nombre d'avis",
+        "items": ["Google", "Trustpilot", "Site Web", "App Store"], 
+        "min": 1, 
+        "max": 5, 
+        "w": [120, 500, 45, 800]
+    },
+    "chomage": {
+        "titre": "Chômage National", 
+        "l_val": "Taux Chômage (%)", 
+        "l_w": "Pop. Active (M)",
+        "items": ["Île-de-France", "Bretagne", "Hauts-de-France", "Corse"], 
+        "min": 5, "max": 12, 
+        "w": [60, 15, 25, 2] 
     },
     "payroll": {
         "titre": "Masse Salariale", "l_val": "Salaire", "l_w": "Effectif",
@@ -74,6 +87,14 @@ with tab_man:
         st.session_state.wm_man_scen = scen
 
     df_m = st.session_state.wm_man_data
+
+    st.info(f"""
+    **Contexte :** Cas *{scen['titre']}*. Ici, chaque élément a une importance (poids) différente.
+    **Consigne :** 1. Multipliez chaque *{scen['l_val']}* par son *{scen['l_w']}*.
+    2. Faites la somme de ces produits.
+    3. Divisez le tout par la somme totale des *{scen['l_w']}*.
+    **Piège à éviter :** Ne divisez pas par le nombre d'items (4), mais bien par la somme des poids !
+    """)
     
     col1, col2 = st.columns([1.5, 1])
     with col1:
@@ -127,6 +148,13 @@ with tab_xl:
     
     df_x = st.session_state.wm_xl_data
     scen_x = st.session_state.wm_xl_scen
+
+    st.info(f"""
+    **Contexte :** Calculer la moyenne pondérée manuellement sur Excel est long et propice aux erreurs.
+    **Consigne :** 1. Utilisez la fonction magique : `=SOMMEPROD(Plage_Poids; Plage_Valeurs)`.
+    2. Divisez le résultat par `=SOMME(Plage_Poids)`.
+    **Syntaxe :** En anglais, c'est `=SUMPRODUCT(...) / SUM(...)`.
+    """)
 
     
     out = io.BytesIO()

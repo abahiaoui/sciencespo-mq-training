@@ -12,20 +12,32 @@ URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training
 st.title("📉 S3 | Ex. 8 : Variance & Écart-Type")
 
 SCENARIOS = {
-    "notes": {
-        "titre": "Notes (Régularité)", "unit": "/20",
-        "vals_a": [11, 12, 12, 13, 12], "vals_b": [6, 18, 5, 19, 12],
-        "mean": 12, "sigma_low": 2, "sigma_high": 6
+    "education": {
+        "titre": "Inégalités de niveau scolaire", 
+        "unit": "/20",
+        "vals_a": [11, 12, 12, 13, 12], # Classe Homogène (Niveau standard)
+        "vals_b": [4, 19, 5, 20, 12],   # Classe Hétérogène (Excellence vs Échec)
+        "mean": 12, 
+        "sigma_low": 1.5, 
+        "sigma_high": 7
     },
     "meteo": {
-        "titre": "Températures (Stabilité)", "unit": "°C",
+        "titre": "Stabilité des températures", "unit": "°C",
         "vals_a": [20, 21, 19, 20, 20], "vals_b": [10, 30, 5, 35, 20], 
         "mean": 20, "sigma_low": 3, "sigma_high": 10
     },
     "machine": {
-        "titre": "Production (Précision)", "unit": "g",
+        "titre": "Précision d'une Machine", "unit": "g",
         "vals_a": [499, 500, 501, 500, 500], "vals_b": [450, 550, 480, 520, 500], 
         "mean": 500, "sigma_low": 5, "sigma_high": 30
+    },
+    "sante": {
+        "titre": "Temps d'Attente en Urgences", "unit": "min",
+        "vals_a": [115, 120, 125, 120, 120], # Hôpital A (Fiable)
+        "vals_b": [60, 180, 50, 190, 120],   # Hôpital B (Chaotique)
+        "mean": 120, 
+        "sigma_low": 5, 
+        "sigma_high": 60
     }
 }
 
@@ -55,6 +67,10 @@ tab_man, tab_xl = st.tabs(["📝 Mode Manuel (Comprendre)", "📊 Mode Excel (Pr
 
 # --- MANUEL ---
 with tab_man:
+
+
+
+        
     st.subheader("1. Calcul manuel pas à pas")
     
     with st.sidebar:
@@ -93,9 +109,21 @@ with tab_man:
     df_m = st.session_state.var_man_data
     mean_val = st.session_state.var_man_scen["mean"]
     n = len(df_m)
-    
+
+    st.info(f"""
+    **Contexte :** Pour comprendre la volatilité de *{scen['titre']}*, nous allons décomposer le calcul de la variance.
+    **Consigne :** 1. Remplissez la colonne **Ecart** (Valeur - Moyenne).
+    2. Remplissez la colonne **Carré** (résultat précédent × lui-même).
+    3. Validez pour vérifier si vous avez compris la mécanique interne de l'écart-type.
+    **Note :** La moyenne (μ) est fixée à {mean_val}.
+    """)
+
     col1, col2 = st.columns([1.5, 1])
+
+
+
     
+
     with col1:
         st.markdown("#### 1. Remplissez le tableau")
         st.caption("Calculez l'écart pour chaque ligne, puis son carré.")
@@ -129,7 +157,6 @@ with tab_man:
             hide_index=True,
             key=f"editor_{st.session_state.editor_key}" # Unique key ensures reset
         )
-        st.info(f"👉 **N = {n}** valeurs.")
 
     with col2:
         st.markdown("#### 2. Finalisation")
@@ -227,8 +254,15 @@ with tab_xl:
         st.session_state.var_xl_scen = scen
     
     df_x = st.session_state.var_xl_data
-    scen_x = st.session_state.get('var_xl_scen', SCENARIOS['notes']) 
+    scen_x = st.session_state.get('var_xl_scen', SCENARIOS['education']) # Fallback in case scenario is missing
     
+    st.info(f"""
+    **Contexte :** Vous avez deux séries de données : "Stable" et "Dispersé".
+    **Consigne :** 1. Calculez l'écart-type de chaque colonne pour comparer leur volatilité.
+    2. Utilisez la fonction `=ECARTYPE.P(Plage)` (ou `=STDEV.P` en anglais).
+    **Important :** N'oubliez pas le **.P** (Population). Si vous utilisez `.S` ou sans suffixe, le résultat sera faux (division par N-1).
+    """)
+
     out = io.BytesIO()
     with pd.ExcelWriter(out, engine='xlsxwriter') as writer:
         df_x.to_excel(writer, index=False)
