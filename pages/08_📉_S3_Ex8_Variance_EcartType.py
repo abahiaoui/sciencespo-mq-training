@@ -107,6 +107,7 @@ with tab_man:
         st.session_state.editor_key = random.randint(0, 100000)
 
     df_m = st.session_state.var_man_data
+    scen = st.session_state.var_man_scen
     mean_val = st.session_state.var_man_scen["mean"]
     n = len(df_m)
 

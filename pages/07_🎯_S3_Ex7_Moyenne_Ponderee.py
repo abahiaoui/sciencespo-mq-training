@@ -86,6 +86,7 @@ with tab_man:
         st.session_state.wm_man_data = df
         st.session_state.wm_man_scen = scen
 
+    scen = st.session_state.wm_man_scen
     df_m = st.session_state.wm_man_data
 
     st.info(f"""
