@@ -7,8 +7,7 @@ from datetime import datetime
 
 st.set_page_config(page_title="S4 | Ex. 9 : Tableaux Croisés", page_icon="📊", layout="wide")
 
-URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_2_3.pdf" # Mettre à jour avec la bonne page
-
+URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_4.pdf" 
 st.title("📊 S4 | Ex. 9 : Distribution à deux variables (Tableau Croisé)")
 
 SCENARIOS = {

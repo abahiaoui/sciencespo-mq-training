@@ -5,7 +5,7 @@ import numpy as np
 # Configuration de la page
 st.set_page_config(page_title="S5 | Ex. 12 : Sources & Échantillonnage", page_icon="🎲", layout="wide")
 
-URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/Seance5.pdf#page=10"
+URL_SLIDES = "https://raw.githubusercontent.com/abahiaoui/sciencespo-mq-training/main/slides/séance_5.pdf"
 
 st.title("🎲 S5 | Ex. 12 : Sources de Données & Échantillonnage")
 
